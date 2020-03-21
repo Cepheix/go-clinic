@@ -12,7 +12,7 @@ func CreatePatient(context *gin.Context) {
 	var command CreatePatientCommand
 
 	if err := context.ShouldBindJSON(&command); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error})
+		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
