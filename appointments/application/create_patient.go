@@ -8,6 +8,16 @@ import (
 	"github.com/go-clinic/appointments/persistance"
 )
 
+// CreatePatient godoc
+// @Summary Create a new patient
+// @Description add patient by json
+// @Accept  json
+// @Produce  json
+// @Param patient body CreatePatientCommand true "Add patient"
+// @Success 201
+// @Failure 400
+// @Failure 500
+// @Router /appointments/patients [post]
 func CreatePatient(context *gin.Context) {
 	var command CreatePatientCommand
 

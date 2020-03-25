@@ -22,7 +22,7 @@ func (server Server) FullAddress() string {
 	return server.Address + ":" + server.Port
 }
 
-func (server Server) SwaggerDocumentAddress(prefix string) string {
-	values := []string{"http:/", server.FullAddress(), prefix, server.SwaggerPrefix, server.SwaggerDocument}
+func (server Server) SwaggerDocumentAddress() string {
+	values := []string{"http:/", server.FullAddress(), server.SwaggerPrefix, server.SwaggerDocument}
 	return strings.Join(values, "/")
 }

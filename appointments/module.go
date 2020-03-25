@@ -6,5 +6,5 @@ import (
 )
 
 func RegisterModule(routerGroup *gin.RouterGroup) {
-	routerGroup.POST("patients", application.CreatePatient)
+	routerGroup.POST("/patients", application.CreatePatient)
 }
