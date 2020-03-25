@@ -1,5 +1,45 @@
+basePath: /api
+definitions:
+  application.CreatePatientCommand:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+    required:
+    - firstName
+    - lastName
+    type: object
 info:
-  contact: {}
-  license: {}
-paths: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server Petstore server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /appointments/patients:
+    post:
+      consumes:
+      - application/json
+      description: add patient by json
+      parameters:
+      - description: Add patient
+        in: body
+        name: patient
+        required: true
+        schema:
+          $ref: '#/definitions/application.CreatePatientCommand'
+      produces:
+      - application/json
+      responses:
+        "201": {}
+        "400": {}
+        "500": {}
+      summary: Create a new patient
 swagger: "2.0"
