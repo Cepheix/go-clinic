@@ -12,6 +12,7 @@ require (
 	github.com/golang/protobuf v1.3.5 // indirect
 	github.com/mailru/easyjson v0.7.1 // indirect
 	github.com/spf13/viper v1.6.2
+	github.com/swaggo/gin-swagger v1.2.0
 	github.com/swaggo/swag v1.6.5
 	github.com/urfave/cli v1.22.3 // indirect
 	go.uber.org/zap v1.14.1

@@ -1,6 +1,9 @@
 {
     "server": {
-        "Address": ":8080"
+        "address": "localhost",
+        "port": "8080",
+        "swaggerDocument": "doc.json",
+        "SwaggerPrefix": "swagger"
     },
     "logging": {
         "development": true
