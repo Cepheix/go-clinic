@@ -1,9 +1,14 @@
 package common
 
 type Configuration struct {
-	Server Server
+	Server  Server
+	Logging Logging
 }
 
 type Server struct {
-	Port int
+	Address string
+}
+
+type Logging struct {
+	Development bool
 }

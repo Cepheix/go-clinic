@@ -1,22 +1,26 @@
 package main
 
 import (
+	"time"
+
+	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
 	"github.com/go-clinic/appointments"
 	"github.com/go-clinic/common"
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 func main() {
-	// Creates a gin router with default middleware:
-	// logger and recovery (crash-free) middleware
-	router := gin.Default()
-
 	config := ReadConfiguration()
+
+	logger := CreateLogger(config)
+
+	router := CreateGinServerInstance(logger)
 
 	RegisterModules(router, config)
 
-	router.Run()
+	router.Run(config.Server.Address)
 }
 
 func ReadConfiguration() common.Configuration {
@@ -33,6 +37,40 @@ func ReadConfiguration() common.Configuration {
 	}
 
 	return config
+}
+
+func CreateLogger(configuration common.Configuration) *zap.Logger {
+	var loggingConfiguration zap.Config
+
+	if configuration.Logging.Development {
+		loggingConfiguration = zap.NewDevelopmentConfig()
+	} else {
+		loggingConfiguration = zap.NewProductionConfig()
+	}
+
+	logger, err := loggingConfiguration.Build()
+
+	if err != nil {
+		panic(err.Error())
+	}
+
+	return logger
+}
+
+func CreateGinServerInstance(logger *zap.Logger) *gin.Engine {
+	router := gin.New()
+
+	// Add a ginzap middleware, which:
+	//   - Logs all requests, like a combined access and error log.
+	//   - Logs to stdout.
+	//   - RFC3339 with UTC time format.
+	router.Use(ginzap.Ginzap(logger, time.RFC3339, true))
+
+	// Logs all panic to error log
+	//   - stack means whether output the stack info.
+	router.Use(ginzap.RecoveryWithZap(logger, true))
+
+	return router
 }
 
 func RegisterModules(router gin.IRouter, configuration common.Configuration) {
