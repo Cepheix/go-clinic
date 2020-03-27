@@ -7,5 +7,13 @@
     },
     "logging": {
         "development": true
+    },
+    "database": {
+        "host": "localhost",
+        "port": "5432",
+        "user": "postgres",
+        "password": "example",
+        "dbName": "postgres",
+        "ssl": "disable"
     }
 }
