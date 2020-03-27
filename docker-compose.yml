@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+    ports: 
+      - 5432:5432
+    security_opt: # deepin apparmor error with docker https://github.com/docker/for-linux/issues/413 
+      - apparmor:unconfined
