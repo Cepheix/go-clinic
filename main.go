@@ -25,22 +25,24 @@ func main() {
 	config := ReadConfiguration()
 	logger := CreateLogger(config)
 
-	InitializeDatabase(config)
+	db := InitializeDatabase(config)
+	defer db.Close()
 
 	router := CreateGinServerInstance(logger)
 
-	RegisterModules(router, config)
+	RegisterModules(router, config, db)
 
 	router.Run(config.Server.FullAddress())
 }
 
-func InitializeDatabase(config common.Configuration) {
+func InitializeDatabase(config common.Configuration) *gorm.DB {
 	db, error := gorm.Open("postgres", config.Database.ConnectionString())
 
 	if error != nil {
 		panic(error.Error())
 	}
 
-	defer db.Close()
 	persistance.MigrateDatabase(db)
+
+	return db
 }

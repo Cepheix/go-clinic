@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-clinic/appointments"
 	"github.com/go-clinic/common"
+	"github.com/jinzhu/gorm"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"go.uber.org/zap"
@@ -24,12 +25,12 @@ func CreateGinServerInstance(logger *zap.Logger) *gin.Engine {
 	return router
 }
 
-func RegisterModules(router gin.IRouter, configuration common.Configuration) {
+func RegisterModules(router gin.IRouter, configuration common.Configuration, db *gorm.DB) {
 	AddSwaggerMiddleware(router, configuration)
 
 	api := router.Group("/api")
 
-	appointments.RegisterModule(api.Group("/appointments"))
+	appointments.RegisterModule(api.Group("/appointments"), db)
 }
 
 func AddSwaggerMiddleware(router gin.IRouter, configuration common.Configuration) {

@@ -5,7 +5,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-clinic/appointments/domain"
-	"github.com/go-clinic/appointments/persistance"
 )
 
 // CreatePatient godoc
@@ -18,7 +17,7 @@ import (
 // @Failure 400
 // @Failure 500
 // @Router /appointments/patients [post]
-func CreatePatient(context *gin.Context) {
+func (patientController PatientController) CreatePatient(context *gin.Context) {
 	var command CreatePatientCommand
 
 	if err := context.ShouldBindJSON(&command); err != nil {
@@ -26,8 +25,7 @@ func CreatePatient(context *gin.Context) {
 		return
 	}
 
-	repository := persistance.NewPatientRepository()
-	handler := NewCreatePatientCommandHandler(repository)
+	handler := NewCreatePatientCommandHandler(patientController.patientRepository)
 
 	handler.CreateNewPatient(command)
 
