@@ -27,9 +27,13 @@ func (patientController PatientController) CreatePatient(context *gin.Context) {
 
 	handler := NewCreatePatientCommandHandler(patientController.patientRepository)
 
-	handler.CreateNewPatient(command)
+	id, err := handler.CreateNewPatient(command)
 
-	context.JSON(http.StatusCreated, gin.H{})
+	if err != nil {
+		context.JSON(http.StatusUnprocessableEntity, gin.H{"error": err.Error()})
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"id": id})
 }
 
 type CreatePatientCommand struct {
@@ -45,7 +49,7 @@ func NewCreatePatientCommandHandler(repository domain.PatientRepository) CreateP
 	return CreatePatientCommandHandler{patientRepository: repository}
 }
 
-func (handler *CreatePatientCommandHandler) CreateNewPatient(command CreatePatientCommand) {
+func (handler *CreatePatientCommandHandler) CreateNewPatient(command CreatePatientCommand) (int, error) {
 	patient := domain.Patient{FirstName: command.FirstName, LastName: command.LastName}
-	handler.patientRepository.Add(patient)
+	return handler.patientRepository.Add(patient)
 }
