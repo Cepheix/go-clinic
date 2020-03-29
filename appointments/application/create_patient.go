@@ -4,7 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-clinic/appointments/domain"
+	"github.com/go-clinic/appointments/domain/model"
+	"github.com/go-clinic/appointments/domain/repository"
 )
 
 // CreatePatient godoc
@@ -43,14 +44,14 @@ type CreatePatientCommand struct {
 }
 
 type CreatePatientCommandHandler struct {
-	patientRepository domain.PatientRepository
+	patientRepository repository.PatientRepository
 }
 
-func NewCreatePatientCommandHandler(repository domain.PatientRepository) CreatePatientCommandHandler {
+func NewCreatePatientCommandHandler(repository repository.PatientRepository) CreatePatientCommandHandler {
 	return CreatePatientCommandHandler{patientRepository: repository}
 }
 
 func (handler *CreatePatientCommandHandler) CreateNewPatient(command CreatePatientCommand) (int, error) {
-	patient := domain.Patient{FirstName: command.FirstName, LastName: command.LastName}
+	patient := model.Patient{FirstName: command.FirstName, LastName: command.LastName}
 	return handler.patientRepository.Add(patient)
 }

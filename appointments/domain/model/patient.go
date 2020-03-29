@@ -1,4 +1,4 @@
-package domain
+package model
 
 type Patient struct {
 	ID        int
