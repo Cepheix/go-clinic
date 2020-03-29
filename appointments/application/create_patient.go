@@ -10,9 +10,10 @@ import (
 // CreatePatient godoc
 // @Summary Create a new patient
 // @Description add patient by json
+// @Tags patients
 // @Accept  json
 // @Produce  json
-// @Param patient body CreatePatientCommand true "Add patient"
+// @Param patient body CreatePatientCommand true "patient"
 // @Success 201
 // @Failure 400
 // @Failure 500

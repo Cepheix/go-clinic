@@ -7,4 +7,5 @@ import (
 
 func MigrateDatabase(db *gorm.DB) {
 	db.AutoMigrate(&domain.Patient{})
+	db.AutoMigrate(&domain.Specialist{})
 }

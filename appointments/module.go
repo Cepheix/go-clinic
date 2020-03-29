@@ -9,8 +9,13 @@ import (
 
 func RegisterModule(routerGroup *gin.RouterGroup, db *gorm.DB) {
 
-	repository := persistance.NewPatientRepository(db)
-	patientController := application.NewPatientController(repository)
+	patientRepository := persistance.NewPatientRepository(db)
+	patientController := application.NewPatientController(patientRepository)
 
 	routerGroup.POST("/patients", patientController.CreatePatient)
+
+	specialistRepository := persistance.NewSpecialistRepository(db)
+	specialistController := application.NewSpecialistController(specialistRepository)
+
+	routerGroup.POST("/specialists", specialistController.CreateSpecialist)
 }
