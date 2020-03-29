@@ -4,7 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/go-clinic/appointments/domain"
+	"github.com/go-clinic/appointments/domain/model"
+	"github.com/go-clinic/appointments/domain/repository"
 )
 
 // CreateSpecialist godoc
@@ -43,14 +44,14 @@ type CreateSpecialistCommand struct {
 }
 
 type CreateSpecialistCommandHandler struct {
-	specialistRepository domain.SpecialistRepository
+	specialistRepository repository.SpecialistRepository
 }
 
-func NewCreateSpecialistCommandHandler(repository domain.SpecialistRepository) CreateSpecialistCommandHandler {
+func NewCreateSpecialistCommandHandler(repository repository.SpecialistRepository) CreateSpecialistCommandHandler {
 	return CreateSpecialistCommandHandler{specialistRepository: repository}
 }
 
 func (handler CreateSpecialistCommandHandler) CreateNewPatient(command CreateSpecialistCommand) (int, error) {
-	patient := domain.Specialist{FirstName: command.FirstName, LastName: command.LastName}
+	patient := model.Specialist{FirstName: command.FirstName, LastName: command.LastName}
 	return handler.specialistRepository.Add(patient)
 }

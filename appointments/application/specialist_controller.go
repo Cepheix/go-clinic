@@ -1,11 +1,13 @@
 package application
 
-import "github.com/go-clinic/appointments/domain"
+import (
+	"github.com/go-clinic/appointments/domain/repository"
+)
 
 type SpecialistController struct {
-	specialistRepository domain.SpecialistRepository
+	specialistRepository repository.SpecialistRepository
 }
 
-func NewSpecialistController(specialistRepository domain.SpecialistRepository) SpecialistController {
+func NewSpecialistController(specialistRepository repository.SpecialistRepository) SpecialistController {
 	return SpecialistController{specialistRepository: specialistRepository}
 }

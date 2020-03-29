@@ -1,4 +1,4 @@
-package domain
+package model
 
 type Specialist struct {
 	ID        int
