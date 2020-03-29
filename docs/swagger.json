@@ -26,10 +26,13 @@
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "patients"
+                ],
                 "summary": "Create a new patient",
                 "parameters": [
                     {
-                        "description": "Add patient",
+                        "description": "patient",
                         "name": "patient",
                         "in": "body",
                         "required": true,
@@ -44,10 +47,56 @@
                     "500": {}
                 }
             }
+        },
+        "/appointments/specialists": {
+            "post": {
+                "description": "add new specialist by json",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "specialist"
+                ],
+                "summary": "Create a new specialist",
+                "parameters": [
+                    {
+                        "description": "specialist",
+                        "name": "specialist",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/application.CreateSpecialistCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {},
+                    "400": {},
+                    "500": {}
+                }
+            }
         }
     },
     "definitions": {
         "application.CreatePatientCommand": {
+            "type": "object",
+            "required": [
+                "firstName",
+                "lastName"
+            ],
+            "properties": {
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                }
+            }
+        },
+        "application.CreateSpecialistCommand": {
             "type": "object",
             "required": [
                 "firstName",

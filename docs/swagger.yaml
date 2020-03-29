@@ -10,6 +10,16 @@ definitions:
     - firstName
     - lastName
     type: object
+  application.CreateSpecialistCommand:
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+    required:
+    - firstName
+    - lastName
+    type: object
 info:
   contact:
     email: support@swagger.io
@@ -29,7 +39,7 @@ paths:
       - application/json
       description: add patient by json
       parameters:
-      - description: Add patient
+      - description: patient
         in: body
         name: patient
         required: true
@@ -42,4 +52,27 @@ paths:
         "400": {}
         "500": {}
       summary: Create a new patient
+      tags:
+      - patients
+  /appointments/specialists:
+    post:
+      consumes:
+      - application/json
+      description: add new specialist by json
+      parameters:
+      - description: specialist
+        in: body
+        name: specialist
+        required: true
+        schema:
+          $ref: '#/definitions/application.CreateSpecialistCommand'
+      produces:
+      - application/json
+      responses:
+        "201": {}
+        "400": {}
+        "500": {}
+      summary: Create a new specialist
+      tags:
+      - specialist
 swagger: "2.0"
