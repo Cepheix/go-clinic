@@ -18,4 +18,5 @@ func RegisterModule(routerGroup *gin.RouterGroup, db *gorm.DB) {
 	specialistController := application.NewSpecialistController(specialistRepository)
 
 	routerGroup.POST("/specialists", specialistController.CreateSpecialist)
+	routerGroup.POST("/specialists/abilities", specialistController.AddSpeciality)
 }
