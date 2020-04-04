@@ -78,9 +78,51 @@
                     "500": {}
                 }
             }
+        },
+        "/appointments/specialists/abilities": {
+            "post": {
+                "description": "add ability by json",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "specialist"
+                ],
+                "summary": "Add ability for given specialist",
+                "parameters": [
+                    {
+                        "description": "Specialist Ability",
+                        "name": "specialistAbility",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/application.AddSpecialitAbilityCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {},
+                    "400": {},
+                    "500": {}
+                }
+            }
         }
     },
     "definitions": {
+        "application.AddSpecialitAbilityCommand": {
+            "type": "object",
+            "properties": {
+                "abilityType": {
+                    "type": "integer"
+                },
+                "specialistId": {
+                    "type": "integer"
+                }
+            }
+        },
         "application.CreatePatientCommand": {
             "type": "object",
             "required": [

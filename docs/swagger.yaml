@@ -1,5 +1,12 @@
 basePath: /api
 definitions:
+  application.AddSpecialitAbilityCommand:
+    properties:
+      abilityType:
+        type: integer
+      specialistId:
+        type: integer
+    type: object
   application.CreatePatientCommand:
     properties:
       firstName:
@@ -73,6 +80,27 @@ paths:
         "400": {}
         "500": {}
       summary: Create a new specialist
+      tags:
+      - specialist
+  /appointments/specialists/abilities:
+    post:
+      consumes:
+      - application/json
+      description: add ability by json
+      parameters:
+      - description: Specialist Ability
+        in: body
+        name: specialistAbility
+        required: true
+        schema:
+          $ref: '#/definitions/application.AddSpecialitAbilityCommand'
+      produces:
+      - application/json
+      responses:
+        "200": {}
+        "400": {}
+        "500": {}
+      summary: Add ability for given specialist
       tags:
       - specialist
 swagger: "2.0"
