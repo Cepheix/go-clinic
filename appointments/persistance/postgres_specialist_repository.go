@@ -24,7 +24,7 @@ func (repository PostgresSpecialistRepository) Save(specialist model.Specialist)
 
 func (repository PostgresSpecialistRepository) Find(id int) (*model.Specialist, error) {
 	specialist := &model.Specialist{}
-	err := repository.db.First(specialist, id).Error
+	err := repository.db.Preload("Ability").First(specialist, id).Error
 
 	return specialist, err
 }
