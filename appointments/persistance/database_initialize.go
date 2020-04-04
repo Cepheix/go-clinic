@@ -8,4 +8,5 @@ import (
 func MigrateDatabase(db *gorm.DB) {
 	db.AutoMigrate(&model.Patient{})
 	db.AutoMigrate(&model.Specialist{})
+	db.AutoMigrate(&model.SpecialistAbility{})
 }
